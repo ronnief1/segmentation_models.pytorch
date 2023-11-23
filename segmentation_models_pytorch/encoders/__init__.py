@@ -76,10 +76,11 @@ def get_encoder(name, in_channels=3, depth=5, weights=None, output_stride=32, **
             settings = encoders[name]["pretrained_settings"][weights]
         except KeyError:
             raise KeyError(
-                "Wrong pretrained weights `{}` for encoder `{}`. Available options are: {}".format(
+                "Wrong pretrained weights `{}` for encoder `{}`. Available options are: {} File path {}".format(
                     weights,
                     name,
                     list(encoders[name]["pretrained_settings"].keys()),
+                    os.path.abspath(os.getcwd()),
                 )
             )
         encoder.load_state_dict(model_zoo.load_url(settings["url"]))
